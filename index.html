@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ELMO — Enhanced Lightweight Mobile Operator. Autonomous facade cleaning robot by WCB Robotics.">
+  <title>WCB Robotics — ELMO</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- GSAP (non-module scripts) -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+
+  <!-- Three.js Import Map -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- ============================================= -->
+  <!-- PRELOADER                                     -->
+  <!-- ============================================= -->
+  <div id="preloader" class="preloader">
+    <div class="preloader__content">
+      <div class="preloader__logo">
+        <span class="preloader__letter">W</span>
+        <span class="preloader__letter">C</span>
+        <span class="preloader__letter">B</span>
+      </div>
+      <div class="preloader__bar-track">
+        <div class="preloader__bar-fill" id="preloaderBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================= -->
+  <!-- NAVIGATION                                    -->
+  <!-- ============================================= -->
+  <nav id="navbar" class="nav">
+    <div class="nav__inner">
+      <a href="#" class="nav__logo">WCB <span class="nav__logo-thin">Robotics</span></a>
+      <ul class="nav__links">
+        <li><a href="#hero" class="nav__link">Home</a></li>
+        <li><a href="#tagline" class="nav__link">About</a></li>
+        <li><a href="#cta" class="nav__link">Contact</a></li>
+        <li><a href="#specs" class="nav__link">FAQs</a></li>
+        <li><a href="#features" class="nav__link">Blog</a></li>
+      </ul>
+      <a href="#cta" class="nav__cta">Get Quote</a>
+      <button class="nav__hamburger" id="navHamburger" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu__links">
+      <li><a href="#hero" class="mobile-menu__link">Home</a></li>
+      <li><a href="#tagline" class="mobile-menu__link">About</a></li>
+      <li><a href="#cta" class="mobile-menu__link">Contact</a></li>
+      <li><a href="#specs" class="mobile-menu__link">FAQs</a></li>
+      <li><a href="#features" class="mobile-menu__link">Blog</a></li>
+      <li><a href="#cta" class="mobile-menu__link mobile-menu__cta">Get Quote</a></li>
+    </ul>  </div>
+
+  <!-- ============================================= -->
+  <!-- 3D CANVAS (fixed behind content)              -->
+  <!-- ============================================= -->
+  <canvas id="robotCanvas" class="robot-canvas"></canvas>
+
+  <!-- ============================================= -->
+  <!-- MAIN CONTENT                                  -->
+  <!-- ============================================= -->
+  <main id="mainContent">
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero section--dark">
+      <div class="hero__noise"></div>
+      <div class="hero__particles" id="heroParticles"></div>
+
+      <!-- Eyebrow + giant title + subtitle sit at top, z-index below the 3D canvas -->
+      <span class="hero__eyebrow" data-animate="fade-up">WCB ROBOTICS</span>
+      <h1 class="hero__title" data-animate="fade-up">ELMO</h1>
+      <p class="hero__subtitle" data-animate="fade-up" data-delay="0.05">Enhanced Lightweight Mobile Operator</p>
+
+      <!-- Description + CTA pinned to bottom, in front of canvas -->
+      <div class="hero__content" data-animate="fade-up" data-delay="0.2">
+        <p class="hero__desc">Autonomous high-rise facade cleaning. Zero crew suspension. 4,000 sq ft per hour.</p>
+        <div class="hero__actions">
+          <a href="#cta" class="hero__btn hero__btn--primary">Schedule Facade Evaluation</a>
+          <a href="#specs" class="hero__btn hero__btn--secondary">Technical Specifications</a>
+        </div>
+      </div>
+
+      <div class="hero__scroll-indicator">
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- MISSION STATEMENT -->
+    <section id="tagline" class="tagline section--dark">
+      <div class="tagline__wrapper">
+        <span class="section-tag" data-animate="fade-up">The Mission</span>
+        <h2 class="tagline__statement" data-animate="fade-up" data-delay="0.1">
+          Robots for What Humans Shouldn't Do.
+        </h2>
+        <p class="tagline__lead" data-animate="fade-up" data-delay="0.2">
+          Suspended rope access and exterior cradles remain among the most dangerous operations in property maintenance. ELMO eliminates fall hazard entirely—anchoring securely to vertical glass, traversing complex architectural mullions, and cleaning autonomously with continuous ground telemetry.
+        </p>
+      </div>
+    </section>
+
+    <!-- PRODUCT SHOWCASE SECTION (Pinned) -->
+    <section id="showcase" class="showcase section--dark">
+      <div class="showcase__container">
+        <!-- Technical callouts -->
+        <div class="showcase__callout showcase__callout--1" data-step="0">
+          <div class="showcase__callout-line"></div>
+          <div class="showcase__callout-content">
+            <span class="showcase__callout-tag">Optical Navigation</span>
+            <h3 class="showcase__callout-title">Autonomous Boundary Tracking</h3>
+            <p class="showcase__callout-desc">Multi-sensor optical array scans window joints, structural silicone seams, and architectural edges in real time.</p>
+          </div>
+        </div>
+        <div class="showcase__callout showcase__callout--2" data-step="1">
+          <div class="showcase__callout-line"></div>
+          <div class="showcase__callout-content">
+            <span class="showcase__callout-tag">Adhesion Safety</span>
+            <h3 class="showcase__callout-title">Dual-Circuit Vacuum System</h3>
+            <p class="showcase__callout-desc">Independent pneumatic circuits generate 200 kg of holding force with automated secondary fail-safe locking.</p>
+          </div>
+        </div>
+        <div class="showcase__callout showcase__callout--3" data-step="2">
+          <div class="showcase__callout-line"></div>
+          <div class="showcase__callout-content">
+            <span class="showcase__callout-tag">Deployment Speed</span>
+            <h3 class="showcase__callout-title">4,000 Sq Ft / Hour Coverage</h3>
+            <p class="showcase__callout-desc">Continuous traversal day or night, reducing multi-week cradle projects to single-shift operations.</p>
+          </div>
+        </div>
+        <div class="showcase__callout showcase__callout--4" data-step="3">
+          <div class="showcase__callout-line"></div>
+          <div class="showcase__callout-content">
+            <span class="showcase__callout-tag">Resource Efficiency</span>
+            <h3 class="showcase__callout-title">Ultrasonic Micro-Mist Cleaning</h3>
+            <p class="showcase__callout-desc">High-frequency fluid atomization dissolves grime with 80% less water and zero chemical runoff.</p>
+          </div>
+        </div>
+      </div>
+      <!-- Background transition overlay -->
+      <div class="showcase__bg-transition"></div>
+    </section>
+
+    <!-- IMPACT / SAFETY SECTION -->
+    <section id="impact" class="impact section--light">
+      <div class="impact__container">
+        <div class="impact__header">
+          <span class="section-tag section-tag--dark">Safety Imperative</span>
+          <h2 class="impact__title" data-animate="fade-up">The Human and Operational Cost of Manual Cleaning</h2>
+        </div>
+        <div class="impact__grid">
+          <div class="impact__stats">
+            <div class="impact__stat" data-animate="fade-up" data-delay="0.0">
+              <span class="impact__stat-number" data-count="1500" data-suffix="+">0</span>
+              <span class="impact__stat-label">Severe injuries and fatalities reported globally in suspended facade access annually</span>
+            </div>
+            <div class="impact__stat" data-animate="fade-up" data-delay="0.1">
+              <span class="impact__stat-number" data-count="40" data-suffix="%">0</span>
+              <span class="impact__stat-label">Of commercial building maintenance fatalities stem from elevated cradle and rope falls</span>
+            </div>
+            <div class="impact__stat" data-animate="fade-up" data-delay="0.2">
+              <span class="impact__stat-number" data-count="15" data-suffix=" min">0</span>
+              <span class="impact__stat-label">Average setup time for an ELMO unit, compared to 4 to 8 hours for manual scaffolding</span>
+            </div>
+            <div class="impact__stat impact__stat--hero" data-animate="fade-up" data-delay="0.3">
+              <span class="impact__stat-number impact__stat-number--accent" data-count="0" data-suffix="">0</span>
+              <span class="impact__stat-label">Human crew members placed at height during autonomous operations</span>
+            </div>
+          </div>
+          
+          <div class="impact__comparison" data-animate="fade-up" data-delay="0.2">
+            <div class="impact__card">
+              <h4 class="impact__card-title">Traditional Suspended Cradles</h4>
+              <ul class="impact__card-list">
+                <li><span class="impact__cross">&times;</span> High fall hazard liability and expensive worker insurance</li>
+                <li><span class="impact__cross">&times;</span> 4 to 8 hours of roof rigging, street permits, and staging</li>
+                <li><span class="impact__cross">&times;</span> Excessive water consumption and chemical runoff</li>
+                <li><span class="impact__cross">&times;</span> Invasive to tenant privacy; weather-dependent</li>
+              </ul>
+            </div>
+            <div class="impact__card impact__card--accent">
+              <h4 class="impact__card-title">WCB Autonomous System</h4>
+              <ul class="impact__card-list">
+                <li><span class="impact__check">&check;</span> Zero human suspension; zero fall liability exposure</li>
+                <li><span class="impact__check">&check;</span> 15-minute deployment from transit case to vertical climb</li>
+                <li><span class="impact__check">&check;</span> Micro-mist atomization reduces water consumption by 80%</li>
+                <li><span class="impact__check">&check;</span> Nighttime operation capability; zero tenant intrusion</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES GRID SECTION -->
+    <section id="features" class="features section--dark">
+      <div class="features__container">
+        <span class="section-tag" data-animate="fade-up">Engineering Architecture</span>
+        <h2 class="features__title" data-animate="fade-up">Field-Tested Industrial Architecture</h2>
+        <p class="features__subtitle" data-animate="fade-up" data-delay="0.1">Engineered for vertical stability, continuous multi-story traversal, and fail-safe operation on modern commercial glass.</p>
+        <div class="features__grid">
+          <!-- Card 1: Vacuum Redundancy -->
+          <div class="features__card" data-animate="fade-up" data-delay="0.0">
+            <div class="features__card-icon">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="16" stroke="currentColor" stroke-width="2"/>
+                <circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2"/>
+                <line x1="24" y1="2" x2="24" y2="8" stroke="currentColor" stroke-width="2"/>
+                <line x1="24" y1="40" x2="24" y2="46" stroke="currentColor" stroke-width="2"/>
+                <line x1="2" y1="24" x2="8" y2="24" stroke="currentColor" stroke-width="2"/>
+                <line x1="40" y1="24" x2="46" y2="24" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="features__card-title">Dual Vacuum Redundancy</h3>
+            <p class="features__card-desc">Primary and auxiliary pneumatic pumps maintain continuous holding force with instantaneous fail-over lock.</p>
+          </div>
+          <!-- Card 2: Wind Tolerance -->
+          <div class="features__card" data-animate="fade-up" data-delay="0.1">
+            <div class="features__card-icon">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 28 C12 22 18 18 24 18 C30 18 36 22 36 28" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="10" y1="36" x2="38" y2="36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <line x1="14" y1="42" x2="34" y2="42" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <line x1="24" y1="6" x2="24" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <h3 class="features__card-title">All-Weather Traversal</h3>
+            <p class="features__card-desc">High-torque drive tracks deliver controlled vertical traverse in gust conditions up to 40 km/h with active drift compensation.</p>
+          </div>
+          <!-- Card 3: Edge & Mullion Tracking -->
+          <div class="features__card" data-animate="fade-up" data-delay="0.2">
+            <div class="features__card-icon">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="8" width="32" height="32" rx="3" stroke="currentColor" stroke-width="2"/>
+                <line x1="24" y1="8" x2="24" y2="40" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 2"/>
+                <circle cx="16" cy="24" r="3" fill="currentColor"/>
+                <circle cx="32" cy="24" r="3" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="features__card-title">Mullion & Edge Tracking</h3>
+            <p class="features__card-desc">Multi-spectral optical array maps structural silicone seams and architectural mullions without contacting framing.</p>
+          </div>
+          <!-- Card 4: 12kg Monocoque -->
+          <div class="features__card" data-animate="fade-up" data-delay="0.3">
+            <div class="features__card-icon">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10" y="14" width="28" height="24" rx="4" stroke="currentColor" stroke-width="2"/>
+                <path d="M18 14 V10 C18 7.8 19.8 6 22 6 H26 C28.2 6 30 7.8 30 10 V14" stroke="currentColor" stroke-width="2"/>
+                <circle cx="24" cy="26" r="4" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <h3 class="features__card-title">12 kg Monocoque Frame</h3>
+            <p class="features__card-desc">Lightweight structural composite frame transported and deployed by a single technician without mechanical lifting rigs.</p>
+          </div>
+          <!-- Card 5: Real-Time Telemetry -->
+          <div class="features__card" data-animate="fade-up" data-delay="0.4">
+            <div class="features__card-icon">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="10" width="32" height="24" rx="3" stroke="currentColor" stroke-width="2"/>
+                <path d="M14 26 L20 20 L26 24 L34 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <line x1="18" y1="38" x2="30" y2="38" stroke="currentColor" stroke-width="2"/>
+                <line x1="24" y1="34" x2="24" y2="38" stroke="currentColor" stroke-width="2"/>
+              </svg>
+            </div>
+            <h3 class="features__card-title">Live Ground Telemetry</h3>
+            <p class="features__card-desc">Continuous RF uplink streams suction pressure margin, battery cell state, and cleaning telemetry to ground operators.</p>
+          </div>
+          <!-- Card 6: Zero Roof Rigging -->
+          <div class="features__card" data-animate="fade-up" data-delay="0.5">
+            <div class="features__card-icon">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="24" cy="24" r="14" stroke="currentColor" stroke-width="2"/>
+                <path d="M16 24 L22 30 L32 18" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="features__card-title">Zero Roof Rigging</h3>
+            <p class="features__card-desc">Operates independently of heavy building maintenance units (BMUs), permanent roof tracks, or street crane permits.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS SECTION (Pinned) -->
+    <section id="howItWorks" class="how-it-works section--dark">
+      <div class="how-it-works__container">
+        <span class="section-tag" data-animate="fade-up">Standard Operating Procedure</span>
+        <h2 class="how-it-works__title" data-animate="fade-up">Deployment Workflow</h2>
+        <div class="how-it-works__progress">
+          <div class="how-it-works__progress-fill" id="howItWorksProgress"></div>
+        </div>
+        <div class="how-it-works__steps">
+          <div class="how-it-works__step how-it-works__step--active" data-step="0">
+            <span class="how-it-works__step-number">01</span>
+            <h3 class="how-it-works__step-title">Transit & Setup</h3>
+            <p class="how-it-works__step-desc">Unit arrives in a single transit flight case. Ground station positioned and safety perimeter established in under 15 minutes.</p>
+          </div>
+          <div class="how-it-works__step" data-step="1">
+            <span class="how-it-works__step-number">02</span>
+            <h3 class="how-it-works__step-title">Surface Adhesion</h3>
+            <p class="how-it-works__step-desc">ELMO mounts to the glass. Dual vacuum circuits engage with automated barometric diagnostic verifying 200 kg holding force.</p>
+          </div>
+          <div class="how-it-works__step" data-step="2">
+            <span class="how-it-works__step-number">03</span>
+            <h3 class="how-it-works__step-title">Autonomous Mapping</h3>
+            <p class="how-it-works__step-desc">Optical sensors identify window boundaries, mullion joints, and structural returns to calculate the optimal cleaning path.</p>
+          </div>
+          <div class="how-it-works__step" data-step="3">
+            <span class="how-it-works__step-number">04</span>
+            <h3 class="how-it-works__step-title">Continuous Execution</h3>
+            <p class="how-it-works__step-desc">Cleans 4,000 sq ft per hour with micro-mist scrubbing and live telemetry, returning to docking position for rapid recovery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- SPECIFICATIONS SECTION -->
+    <section id="specs" class="specs section--light">
+      <div class="specs__container">
+        <span class="section-tag section-tag--dark" data-animate="fade-up">Datasheet</span>
+        <h2 class="specs__title" data-animate="fade-up">Technical Specifications</h2>
+        <div class="specs__grid">
+          <div class="specs__row" data-animate="fade-up" data-delay="0.0">
+            <span class="specs__label">Chassis Weight</span>
+            <span class="specs__value">12 kg (monocoque structural composite)</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.05">
+            <span class="specs__label">Dimensions</span>
+            <span class="specs__value">450 × 350 × 180 mm</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.1">
+            <span class="specs__label">Adhesion Force</span>
+            <span class="specs__value">200 kg (dual-circuit vacuum redundancy)</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.15">
+            <span class="specs__label">Cleaning Rate</span>
+            <span class="specs__value">4,000 sq ft / hour (approx. 400 m²/hr)</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.2">
+            <span class="specs__label">Power & Runtime</span>
+            <span class="specs__value">8 hours continuous (hot-swappable Li-ion pack)</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.25">
+            <span class="specs__label">Wind Tolerance</span>
+            <span class="specs__value">Operational up to 40 km/h</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.3">
+            <span class="specs__label">Optical Sensing</span>
+            <span class="specs__value">Multi-spectral optical array & edge detection</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.35">
+            <span class="specs__label">Water Consumption</span>
+            <span class="specs__value">0.5 L per m² (ultrasonic micro-mist atomization)</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.4">
+            <span class="specs__label">Safety Systems</span>
+            <span class="specs__value">Dual pneumatic circuits & mechanical safety tether</span>
+          </div>
+          <div class="specs__row" data-animate="fade-up" data-delay="0.45">
+            <span class="specs__label">Acoustic Output</span>
+            <span class="specs__value">&lt; 55 dB (quiet tenant-friendly operation)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section id="cta" class="cta section--dark">
+      <div class="cta__particles" id="ctaParticles"></div>
+      <div class="cta__container">
+        <span class="section-tag" data-animate="fade-up">Enterprise Inquiries</span>
+        <h2 class="cta__title" data-animate="fade-up">Modernize Your Facade Operations</h2>
+        <p class="cta__subtitle" data-animate="fade-up" data-delay="0.1">Consult with our robotics engineering team to evaluate deployment parameters, schedule a demonstration, or request technical documentation for your property portfolio.</p>
+        <div class="cta__buttons" data-animate="fade-up" data-delay="0.2">
+          <a href="#" class="cta__btn cta__btn--primary">Schedule an On-Site Demonstration</a>
+          <a href="#" class="cta__btn cta__btn--secondary">Download Technical Dossier</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer section--dark">
+      <div class="footer__container">
+        <div class="footer__grid">
+          <div class="footer__col">
+            <h4 class="footer__col-title">Product</h4>
+            <ul class="footer__col-links">
+              <li><a href="#hero">ELMO</a></li>
+              <li><a href="#features">Technology</a></li>
+              <li><a href="#specs">Specifications</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4 class="footer__col-title">Company</h4>
+            <ul class="footer__col-links">
+              <li><a href="#">About</a></li>
+              <li><a href="#">Careers</a></li>
+              <li><a href="#">Press</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4 class="footer__col-title">Support</h4>
+            <ul class="footer__col-links">
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">Contact</a></li>
+              <li><a href="#">FAQ</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4 class="footer__col-title">Legal</h4>
+            <ul class="footer__col-links">
+              <li><a href="#">Privacy</a></li>
+              <li><a href="#">Terms</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p class="footer__copyright">&copy; 2024 WCB Robotics. All rights reserved.</p>
+          <div class="footer__social">
+            <a href="#" class="footer__social-link" aria-label="Twitter">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="YouTube">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 00-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 00.502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 002.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 002.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Main App Script (module for Three.js imports) -->
+  <script type="module" src="js/app.js"></script>
+
+</body>
+</html>
